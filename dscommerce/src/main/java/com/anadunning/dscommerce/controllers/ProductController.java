@@ -1,8 +1,7 @@
 package com.anadunning.dscommerce.controllers;
 
+
 import com.anadunning.dscommerce.dto.ProductDTO;
-import com.anadunning.dscommerce.entities.Product;
-import com.anadunning.dscommerce.repositories.ProductRepository;
 import com.anadunning.dscommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,18 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/products")
-public class ProductController  {
+public class ProductController {
 
     @Autowired
     private ProductService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity <ProductDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
         ProductDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
