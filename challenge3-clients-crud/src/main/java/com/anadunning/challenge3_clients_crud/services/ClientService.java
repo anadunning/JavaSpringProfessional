@@ -4,6 +4,8 @@ import com.anadunning.challenge3_clients_crud.dto.ClientDTO;
 import com.anadunning.challenge3_clients_crud.entities.Client;
 import com.anadunning.challenge3_clients_crud.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +25,21 @@ public class ClientService {
     }
 
     @Transactional(readOnly = true)
-    public List<ClientDTO> findAll() {
-        List<Client> result = repository.findAll();
-        return result.stream().map(x -> new ClientDTO(x)).toList();
+    public Page<ClientDTO> findAll(Pageable pageable) {
+        Page<Client> result = repository.findAll(pageable);
+        return result.map(x -> new ClientDTO(x));
+    }
+
+    @Transactional
+    public ClientDTO insert(ClientDTO dto) {
+        Client entity = new Client();
+        entity.setName(dto.getName());
+        entity.setCpf(dto.getCpf());
+        entity.setIncome(dto.getIncome());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setChildren(dto.getChildren());
+        entity = repository.save(entity);
+        return new ClientDTO(entity);
     }
 
 }
