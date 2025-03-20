@@ -1,14 +1,19 @@
 package com.anadunning.challenge3_clients_crud.dto;
 
 import com.anadunning.challenge3_clients_crud.entities.Client;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 
 public class ClientDTO {
     private Long id;
+
+    @NotBlank(message = "Nome não pode ser vazio")
     private String name;
     private String cpf;
     private Double income;
+    @PastOrPresent(message = "Não pode ser data futura")
     private LocalDate birthDate;
     private Integer children;
 
