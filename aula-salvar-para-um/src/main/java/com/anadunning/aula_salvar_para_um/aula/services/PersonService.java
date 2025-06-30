@@ -1,5 +1,6 @@
 package com.anadunning.aula_salvar_para_um.aula.services;
 
+import com.anadunning.aula_salvar_para_um.aula.dto.PersonDTO;
 import com.anadunning.aula_salvar_para_um.aula.dto.PersonDepartmentDTO;
 import com.anadunning.aula_salvar_para_um.aula.entities.Department;
 import com.anadunning.aula_salvar_para_um.aula.entities.Person;
@@ -31,5 +32,21 @@ public class PersonService {
         entity = repository.save(entity);
 
         return new PersonDepartmentDTO(entity);
+    }
+
+    public PersonDTO insert(PersonDTO dto) {
+        Person entity = new Person();
+        entity.setName(dto.getName());
+        entity.setSalary(dto.getSalary());
+
+//        Department dept = departmentRepository.getReferenceById(dto.getDepartmentId());
+
+        Department dept = new Department();
+        dept.setId(dto.getDepartmentId());
+
+        entity.setDepartment(dept);
+        entity = repository.save(entity);
+
+        return new PersonDTO(entity);
     }
 }
